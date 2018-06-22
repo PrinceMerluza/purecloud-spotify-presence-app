@@ -2,7 +2,7 @@
 
 A quick test project on updating a user's "What's on your mind" to the current track playing on their Spotify.
 
-####Demo:
+#### Demo:
 
 [![Screenshot](https://i.imgur.com/LL4K0um.png)](http://www.youtube.com/watch?v=xZAe95AaD5s)
 
