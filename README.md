@@ -1,5 +1,9 @@
 # PureCloud Spotify Presence App
 
+App URL:
+
+https://princemerluza.github.io/purecloud-spotify-presence-app/
+
 Project Description
 
 1. App should be included as a custom-client app widget to the PureCloud instance.
