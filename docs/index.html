@@ -21,15 +21,15 @@
 </head>
 <body>
     <div class="container">
+        <!-- Landing page / Login -->
         <div id="login">
             <h1>Login in to Spotify</h1>
             <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
         </div>
+
+        <!-- If user is logged in to Spotify -->
         <div id="loggedin">
-            <div id="user-profile">
-            </div>
-            <div id="oauth">
-            </div>
+            <div id="current-track"></div>
         </div>
     </div>
 
@@ -67,6 +67,20 @@
             return text;
         };
         
+        /**
+         * Polling function that gets the current track of user
+         */
+        function getCurrentTrack(){
+            spotifyApi.getMyCurrentPlayingTrack()
+            .then(function(data){
+                $('#current-track').html(data.item.name);
+            }, function (err){
+                console.error(err);
+            });
+
+            setTimeout(getCurrentTrack, 5000);
+        }
+
         // Get URL parameters and authorization information
         var params = getHashParams();
         var access_token = params.access_token,
@@ -77,8 +91,13 @@
             alert('There was an error during the authentication');
         } else {
             localStorage.removeItem(stateKey);
+            
             if (access_token) {
-                console.log("Succesfully logged in.")
+                $('#login').hide();
+                $('#loggedin').show();
+
+                spotifyApi.setAccessToken(access_token);
+                getCurrentTrack();
             } else {
                 $('#login').show();
                 $('#loggedin').hide();
@@ -89,7 +108,7 @@
                 var redirect_uri = 'http://localhost:3000/';
                 var state = generateRandomString(16);
                 localStorage.setItem(stateKey, state);
-                var scope = 'user-read-private user-read-email';
+                var scope = 'user-read-currently-playing';
                 var url = 'https://accounts.spotify.com/authorize';
                 url += '?response_type=token';
                 url += '&client_id=' + encodeURIComponent(client_id);
