@@ -48,6 +48,7 @@
         // PureCloud Authorization
         const platformClient = require('platformClient');
         var client = platformClient.ApiClient.instance;
+        client.setPersistSettings(true);
         client.loginImplicitGrant(purecloudSpotify_pureCloud_clientId, purecloudSpotify_redirect_uri)
         .then(function(data) {
             console.log(data);
