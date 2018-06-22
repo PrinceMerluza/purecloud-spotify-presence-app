@@ -14,7 +14,7 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 
 #### Project Description
 
-1. App is a custom-client widget added to the PureCloud instance.
+1. App can be run stand-alone or as a custom-client widget added to the PureCloud instance.
 
 2. Authorization required for both Purecloud and Spotify.
 
