@@ -1,0 +1,22 @@
+{
+  "name": "purecloud-spotify-presence-app",
+  "version": "1.0.0",
+  "description": "Project Description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrinceMerluza/purecloud-spotify-presence-app.git"
+  },
+  "author": "Prince Merluza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PrinceMerluza/purecloud-spotify-presence-app/issues"
+  },
+  "homepage": "https://github.com/PrinceMerluza/purecloud-spotify-presence-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
