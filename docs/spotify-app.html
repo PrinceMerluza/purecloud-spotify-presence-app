@@ -54,20 +54,6 @@
             }
             return hashParams;
         }
-
-        /**
-         * Generates a random string containing numbers and letters
-         * @param  {number} length The length of the string
-         * @return {string} The generated string
-         */
-        function generateRandomString(length) {
-            var text = '';
-            var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            for (var i = 0; i < length; i++) {
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-            }
-            return text;
-        };
         
         /**
          * Polling function that gets the current track of user
@@ -89,24 +75,14 @@
             state = params.state,
             storedState = localStorage.getItem(stateKey);
 
+        // If there is only access token in URL, it is the PureCloud Token
+        // save it as state
         if (access_token && (state == null || state !== storedState)) {
-            alert('There was an error during the authentication');
-        } else {
-            localStorage.removeItem(stateKey);
-            
-            if (access_token) {
-                $('#login').hide();
-                $('#loggedin').show();
-
-                spotifyApi.setAccessToken(access_token);
-                getCurrentTrack();
-            } else {
-                $('#login').show();
-                $('#loggedin').hide();
-            }
+            state = access_token;
+            $('#login').show();
+            $('#loggedin').hide();
 
             document.getElementById('login-button').addEventListener('click', function() {
-                var state = generateRandomString(16);
                 localStorage.setItem(stateKey, state);
                 var scope = 'user-read-currently-playing';
                 var url = 'https://accounts.spotify.com/authorize';
@@ -117,6 +93,17 @@
                 url += '&state=' + encodeURIComponent(state);
                 window.location = url;
             }, false);
+
+        } else {
+        // Succesful authorization from Spotify    
+            localStorage.removeItem(stateKey);
+            if (access_token) {
+                $('#login').hide();
+                $('#loggedin').show();
+
+                spotifyApi.setAccessToken(access_token);
+                getCurrentTrack();
+            }
         }    
     })();
     </script>
