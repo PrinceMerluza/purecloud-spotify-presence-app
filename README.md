@@ -39,3 +39,9 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 2. (If run as a widget) After clicking 'Login to Spotify' it shows show a blank page.
 
 * Workaround: This has something to do with the X-Frame setting from Spotify. Install a chrome plugin called 'Iframe-Allow' to allow you to login and authorize from Spotify OR just run the straight from a different browser tab.
+
+#### Credits
+
+PureCloud SDK: https://github.com/MyPureCloud/platform-client-sdk-javascript
+
+Spotify Web API Library: https://github.com/jmperez/spotify-web-api-js
