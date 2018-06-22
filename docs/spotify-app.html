@@ -89,11 +89,9 @@
                     "message": presence_message 
                 }
                 
-                console.log(data);
                 return presenceApi.patchUserPresence(user_id, "PURECLOUD", body)
             }).then(function(data){
-                console.log(data);
-                console.log("Update message status");
+
             }).catch(function(err){
                 console.log(err);
             });
