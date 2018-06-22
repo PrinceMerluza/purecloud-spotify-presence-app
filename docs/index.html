@@ -13,11 +13,18 @@
 <body>
     <div class="container">
         <div>This is the landing page.</div>
+        <button onclick="">Force Clear PureCloud Setting</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="creds.js"></script>
     <script>
+        // Clear stored settings forcefully
+        function hardClear(){
+            localStorage.removeItem('purecloud_auth_data');
+            console.info('Cleared purecloud_auth_data')
+        }
+
         // PureCloud Authorization
         const platformClient = require('platformClient');
         var client = platformClient.ApiClient.instance;
