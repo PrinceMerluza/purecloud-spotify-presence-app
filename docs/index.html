@@ -38,7 +38,27 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-    (function(){
+        // Globals
+        // TODO: Def refactor everything into different files
+        var purecloudSpotify_spotify_clientId = '76a609654bf14ed9aecff16b15110c12';
+        var purecloudSpotify_pureCloud_clientId = '8c821827-57bd-4d44-8765-597d4a3220c5';
+        var purecloudSpotify_redirect_uri = 'https://princemerluza.github.io/purecloud-spotify-presence-app/';
+    </script>
+    <script>
+        // PureCloud Authorization
+        const platformClient = require('platformClient');
+        var client = platformClient.ApiClient.instance;
+        client.loginImplicitGrant(purecloudSpotify_pureCloud_clientId, purecloudSpotify_redirect_uri)
+        .then(function(data) {
+            console.log(data);
+            spotifyAppSetup();
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+    </script>
+    <script>
+    function spotifyAppSetup(){
         var spotifyApi = new SpotifyWebApi();
         var stateKey = 'spotify_auth_state';
 
@@ -107,21 +127,19 @@
             }
 
             document.getElementById('login-button').addEventListener('click', function() {
-                var client_id = '76a609654bf14ed9aecff16b15110c12'; 
-                var redirect_uri = 'https://princemerluza.github.io/purecloud-spotify-presence-app/';
                 var state = generateRandomString(16);
                 localStorage.setItem(stateKey, state);
                 var scope = 'user-read-currently-playing';
                 var url = 'https://accounts.spotify.com/authorize';
                 url += '?response_type=token';
-                url += '&client_id=' + encodeURIComponent(client_id);
+                url += '&client_id=' + encodeURIComponent(purecloudSpotify_spotify_clientId);
                 url += '&scope=' + encodeURIComponent(scope);
-                url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+                url += '&redirect_uri=' + encodeURIComponent(purecloudSpotify_redirect_uri);
                 url += '&state=' + encodeURIComponent(state);
                 window.location = url;
             }, false);
         }    
-    })();
+    }
     </script>
 </body>
 </html>
