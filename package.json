@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/PrinceMerluza/purecloud-spotify-presence-app#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "spotify-web-api-js": "^0.24.0"
   }
 }
