@@ -33,7 +33,9 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 #### Known Bugs
 
 1. After PureCloud implicit grant, it will sometimes fail to go to the Spotify app page.
+
 Workaround: Click button to clear settings saved on local storage then refresh page.
 
-2. Login to Spotify will show a blank page
-Workaround: This has something to do with the X-Frame setting from Spotify. Install a chrome plugin called 'Iframe-Allow' to allow you to login and authorize from Spotify.
+2. (If run as a widget) After clicking 'Login to Spotify' it shows show a blank page.
+
+* Workaround: This has something to do with the X-Frame setting from Spotify. Install a chrome plugin called 'Iframe-Allow' to allow you to login and authorize from Spotify OR just run the straight from a different browser tab.
