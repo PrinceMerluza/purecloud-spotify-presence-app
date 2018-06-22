@@ -34,7 +34,7 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 
 1. After PureCloud implicit grant, it will sometimes fail to go to the Spotify app page.
 
-Workaround: Click button to clear settings saved on local storage then refresh page.
+* Workaround: Click button to clear settings saved on local storage then refresh page.
 
 2. (If run as a widget) After clicking 'Login to Spotify' it shows show a blank page.
 
