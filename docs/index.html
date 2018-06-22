@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div>This is the landing page.</div>
-        <button onclick="">Force Clear PureCloud Setting</button>
+        <button onclick="hardClear()">Force Clear PureCloud Setting</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -22,7 +22,7 @@
         // Clear stored settings forcefully
         function hardClear(){
             localStorage.removeItem('purecloud_auth_data');
-            console.info('Cleared purecloud_auth_data')
+            console.log('Cleared purecloud_auth_data');
         }
 
         // PureCloud Authorization
