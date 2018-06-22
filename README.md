@@ -12,7 +12,7 @@ https://youtu.be/xZAe95AaD5s
 
 https://princemerluza.github.io/purecloud-spotify-presence-app/
 
-Project Description
+#### Project Description
 
 1. App is a custom-client widget added to the PureCloud instance.
 
