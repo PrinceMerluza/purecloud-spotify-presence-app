@@ -22,13 +22,11 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 
 #### TODO (aka probably won't be done)
 
-1. App shoud check if current track is the same to limit calls to PureCloud Presence API.
+1. Websockets instead of manual polling if Spotify ever implements it for their Web API.
 
-2. Websockets instead of manual polling if Spotify ever implements it for their Web API.
+2. Spotify Controls on the widget.
 
-3. Spotify Controls on the widget.
-
-4. Take care of refreshing Spotify token (defaulted to 1 hour). Spotify does not support implicit grant to refresh the token.
+3. Take care of refreshing Spotify token (defaulted to 1 hour). Spotify does not support implicit grant to refresh the token.
 
 #### Known Bugs
 
