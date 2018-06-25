@@ -77,14 +77,16 @@
                 }
             })
             .then(function(data){
-                $('#current-track').html(data.item.name);
+                if(typeof data != 'undefined'){
+                    $('#current-track').html(data.item.name);
 
-                // Only change presence if it's a different track.
-                if(data.item.name !== curentTrack){
-                    curentTrack = data.item.name;
-                    assignCurrentTrackToPresence(curentTrack);
+                    // Only change presence if it's a different track.
+                    if(data.item.name !== curentTrack){
+                        curentTrack = data.item.name;
+                        assignCurrentTrackToPresence(curentTrack);
+                    }
                 }
-
+                
                 setTimeout(getCurrentTrack, 2000);
             })
             .catch(function(err){
