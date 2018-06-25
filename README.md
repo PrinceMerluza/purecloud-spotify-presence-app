@@ -28,6 +28,10 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 
 3. Take care of refreshing Spotify token (defaulted to 1 hour). Spotify does not support implicit grant to refresh the token.
 
+4. Change flair backgroud color based on playback status.
+
+5. Add artist name to the status message.
+
 #### Known Bugs
 
 1. After PureCloud implicit grant, it will sometimes fail to go to the Spotify app page.
