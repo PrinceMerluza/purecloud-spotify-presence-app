@@ -140,7 +140,7 @@
 
             document.getElementById('login-button').addEventListener('click', function() {
                 localStorage.setItem(stateKey, state);
-                var scope = 'user-read-currently-playing';
+                var scope = 'user-read-currently-playing user-read-playback-state';
                 var url = 'https://accounts.spotify.com/authorize';
                 url += '?response_type=token';
                 url += '&client_id=' + encodeURIComponent(purecloudSpotifyCreds.spotify_clientId);
