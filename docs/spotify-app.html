@@ -68,6 +68,7 @@
          */
         function getCurrentTrack(){
             let is_playing = false;
+            let paused = false;
 
             spotifyApi.getMyCurrentPlaybackState()
             .then(function(data){
@@ -77,12 +78,14 @@
             })
             .then(function(data){
                 if(!is_playing){
-                    assignCurrentTrackToPresence(currentTrack, 'PAUSED');
+                    assignCurrentTrackToPresence(currentTrack, '(PAUSED)');
+                    paused = true;
                 }else{
                     $('#current-track').html(data.item.name);
 
                     // Only change presence if it's a different track.
-                    if(data.item.name !== currentTrack){
+                    if((data.item.name !== currentTrack) || paused){
+                        paused = false;
                         currentTrack = data.item.name;
                         assignCurrentTrackToPresence(currentTrack);
                     }
