@@ -46,8 +46,8 @@
 
         var spotifyApi = new SpotifyWebApi();
         var stateKey = 'spotify_auth_state';
-        var curentTrack = '';
-        var curentUserId = '';
+        var currentTrack = '';
+        var currentUserId = '';
 
         /**
          * Obtains parameters from the hash of the URL
@@ -76,17 +76,15 @@
                 return spotifyApi.getMyCurrentPlayingTrack();
             })
             .then(function(data){
-                if(typeof data != 'undefined'){
+                if(!is_playing){
+                    assignCurrentTrackToPresence(currentTrack, 'PAUSED');
+                }else{
                     $('#current-track').html(data.item.name);
 
                     // Only change presence if it's a different track.
-                    if(data.item.name !== curentTrack){
-                        curentTrack = data.item.name;
-                        if(is_playing){
-                            assignCurrentTrackToPresence(curentTrack);
-                        }else{
-                            assignCurrentTrackToPresence(curentTrack, 'PAUSED');
-                        }
+                    if(data.item.name !== currentTrack){
+                        currentTrack = data.item.name;
+                        assignCurrentTrackToPresence(currentTrack);
                     }
                 }
                 
@@ -123,7 +121,7 @@
                 "message": presence_message 
             }
                 
-            presenceApi.patchUserPresence(curentUserId, "PURECLOUD", body)
+            presenceApi.patchUserPresence(currentUserId, "PURECLOUD", body)
             .then(function(data){
                 console.log("Updated presence to trak.");
             }).catch(function(err){
@@ -169,7 +167,7 @@
 
                 usersApi.getUsersMe()
                 .then(function(data){
-                    curentUserId = data.id;  
+                    currentUserId = data.id;  
 
                     getCurrentTrack();            
                 }).catch(function(err){
