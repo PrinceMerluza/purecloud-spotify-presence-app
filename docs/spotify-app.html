@@ -75,12 +75,11 @@
                     curentTrack = data.item.name;
                     assignCurrentTrackToPresence(curentTrack);
                 }
-                
-            }, function (err){
-                console.error(err);
-            });
 
-            setTimeout(getCurrentTrack, 2000);
+                setTimeout(getCurrentTrack, 2000);
+            }, function (err){
+                assignCurrentTrackToPresence('ERROR');
+            });
         }
 
         /**
@@ -88,7 +87,12 @@
          * @param currentTrack the title of the current track playing
          */
         function assignCurrentTrackToPresence(currentTrack){
-            var presence_message = "flair:#84bd00:SPOTIFY: " + currentTrack;
+            var message_color = '#84BD00';
+            if(currentTrack === 'ERROR'){
+                message_color = '#840000';
+            }
+
+            var presence_message = "flair:" + message_color + ":SPOTIFY: " + currentTrack;
             var body = {
                 "message": presence_message 
             }
