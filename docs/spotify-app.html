@@ -67,14 +67,13 @@
          * Polling function that gets the current track of user
          */
         function getCurrentTrack(){
+            let is_playing = false;
+
             spotifyApi.getMyCurrentPlaybackState()
             .then(function(data){
-            // Assign only if something is being played
-                if(data.is_playing){
-                    return spotifyApi.getMyCurrentPlayingTrack()
-                }else{
-                    assignCurrentTrackToPresence('(PAUSED)','PAUSED');
-                }
+                is_playing = data.is_playing;
+
+                return spotifyApi.getMyCurrentPlayingTrack();
             })
             .then(function(data){
                 if(typeof data != 'undefined'){
@@ -83,7 +82,11 @@
                     // Only change presence if it's a different track.
                     if(data.item.name !== curentTrack){
                         curentTrack = data.item.name;
-                        assignCurrentTrackToPresence(curentTrack);
+                        if(is_playing){
+                            assignCurrentTrackToPresence(curentTrack);
+                        }else{
+                            assignCurrentTrackToPresence(curentTrack, 'PAUSED');
+                        }
                     }
                 }
                 
@@ -115,7 +118,7 @@
                     break;
             }
 
-            var presence_message = "flair:" + message_color + ":𝐒𝐏𝐎𝐓𝐈𝐅𝐘: " + currentTrack;
+            var presence_message = "flair:" + message_color + ":𝐒𝐏𝐎𝐓𝐈𝐅𝐘: " + additionalStatus + currentTrack;
             var body = {
                 "message": presence_message 
             }
