@@ -77,6 +77,11 @@
                 }
             })
             .then(function(data){
+                if (typeof data === 'undefined'){
+                    setTimeout(getCurrentTrack, 3000);
+                    return;
+                }
+
                 $('#current-track').html(data.item.name);
 
                 // Only change presence if it's a different track.
