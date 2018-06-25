@@ -66,30 +66,50 @@
          * Polling function that gets the current track of user
          */
         function getCurrentTrack(){
-            spotifyApi.getMyCurrentPlayingTrack()
+            spotifyApi.getMyCurrentPlaybackState()
             .then(function(data){
-                $('#current-track').html(data.item.name);
+            // Assign only if something is being played
+                if(data.is_playing){
+                    spotifyApi.getMyCurrentPlayingTrack()
+                    .then(function(data){
+                        $('#current-track').html(data.item.name);
 
-                // Only change presence if it's a different track.
-                if(data.item.name !== curentTrack){
-                    curentTrack = data.item.name;
-                    assignCurrentTrackToPresence(curentTrack);
+                        // Only change presence if it's a different track.
+                        if(data.item.name !== curentTrack){
+                            curentTrack = data.item.name;
+                            assignCurrentTrackToPresence(curentTrack);
+                        }
+                        setTimeout(getCurrentTrack, 2000);
+                    }, function (err){
+                        assignCurrentTrackToPresence('ERROR','ERROR');
+                    });
+                }else{
+                    assignCurrentTrackToPresence('(PAUSED)','PAUSED');
                 }
-
-                setTimeout(getCurrentTrack, 2000);
-            }, function (err){
-                assignCurrentTrackToPresence('ERROR');
-            });
+            }, function(err){
+                assignCurrentTrackToPresence('ERROR', 'ERROR');
+            });            
         }
 
         /**
          * Assign the Track title to the current user's message
          * @param currentTrack the title of the current track playing
          */
-        function assignCurrentTrackToPresence(currentTrack){
+        function assignCurrentTrackToPresence(currentTrack, additionalStatus){
+            // Default values
+            additionalStatus = (typeof additionalStatus != 'undefined') ? additionalStatus : ''; 
             var message_color = '#84BD00';
-            if(currentTrack === 'ERROR'){
-                message_color = '#840000';
+
+            switch(additionalStatus){
+                case 'ERROR':
+                    message_color = '#840000';
+                    currentTrack = '';
+                    break;
+                case 'PAUSED':
+                    message_color = '#BB4';
+                    break;
+                default:
+                    break;
             }
 
             var presence_message = "flair:" + message_color + ":𝐒𝐏𝐎𝐓𝐈𝐅𝐘: " + currentTrack;
