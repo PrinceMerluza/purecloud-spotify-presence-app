@@ -18,7 +18,7 @@ https://princemerluza.github.io/purecloud-spotify-presence-app/
 
 2. Authorization required for both Purecloud and Spotify.
 
-2. The user's presence message will automatically be updated based on the current track they're listening to. (Polled every 5 seconds)
+2. The user's presence message will automatically be updated based on the current track they're listening to. (Polled every 2 seconds)
 
 #### TODO (aka probably won't be done)
 
