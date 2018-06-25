@@ -70,25 +70,24 @@
             .then(function(data){
             // Assign only if something is being played
                 if(data.is_playing){
-                    spotifyApi.getMyCurrentPlayingTrack()
-                    .then(function(data){
-                        $('#current-track').html(data.item.name);
-
-                        // Only change presence if it's a different track.
-                        if(data.item.name !== curentTrack){
-                            curentTrack = data.item.name;
-                            assignCurrentTrackToPresence(curentTrack);
-                        }
-                        setTimeout(getCurrentTrack, 2000);
-                    }, function (err){
-                        assignCurrentTrackToPresence('ERROR','ERROR');
-                    });
+                    return spotifyApi.getMyCurrentPlayingTrack()
                 }else{
                     assignCurrentTrackToPresence('(PAUSED)','PAUSED');
                 }
-            }, function(err){
-                assignCurrentTrackToPresence('ERROR', 'ERROR');
-            });            
+            })
+            .then(function(data){
+                $('#current-track').html(data.item.name);
+
+                // Only change presence if it's a different track.
+                if(data.item.name !== curentTrack){
+                    curentTrack = data.item.name;
+                    assignCurrentTrackToPresence(curentTrack);
+                }
+                setTimeout(getCurrentTrack, 2000);
+            })
+            .catch(function(err){
+                console.log(err);
+            });          
         }
 
         /**
