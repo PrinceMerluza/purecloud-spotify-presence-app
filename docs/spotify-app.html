@@ -78,13 +78,14 @@
             })
             .then(function(data){
                 if(!is_playing){
-                    assignCurrentTrackToPresence(currentTrack, '(PAUSED)');
+                    assignCurrentTrackToPresence(currentTrack, 'PAUSED');
                     paused = true;
                 }else{
                     $('#current-track').html(data.item.name);
 
                     // Only change presence if it's a different track.
                     if((data.item.name !== currentTrack) || paused){
+                        console.log('willcall');
                         paused = false;
                         currentTrack = data.item.name;
                         assignCurrentTrackToPresence(currentTrack);
@@ -106,6 +107,9 @@
             // Default values
             additionalStatus = (typeof additionalStatus != 'undefined') ? additionalStatus : ''; 
             var message_color = '#84BD00';
+            console.log(currentTrack);
+            console.log(additionalStatus);
+            
 
             switch(additionalStatus){
                 case 'ERROR':
@@ -119,7 +123,7 @@
                     break;
             }
 
-            var presence_message = "flair:" + message_color + ":𝐒𝐏𝐎𝐓𝐈𝐅𝐘: " + additionalStatus + currentTrack;
+            var presence_message = "flair:" + message_color + ":𝐒𝐏𝐎𝐓𝐈𝐅𝐘: " + additionalStatus + " " + currentTrack;
             var body = {
                 "message": presence_message 
             }
