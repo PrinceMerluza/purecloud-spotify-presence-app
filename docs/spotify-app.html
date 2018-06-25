@@ -84,6 +84,8 @@
                     curentTrack = data.item.name;
                     assignCurrentTrackToPresence(curentTrack);
                 }
+
+                setTimeout(getCurrentTrack, 2000);
             })
             .catch(function(err){
                 console.log(err);
@@ -119,8 +121,6 @@
             presenceApi.patchUserPresence(curentUserId, "PURECLOUD", body)
             .then(function(data){
                 console.log("Updated presence to trak.");
-
-                setTimeout(getCurrentTrack, 2000);
             }).catch(function(err){
                 console.log(err);
             });
