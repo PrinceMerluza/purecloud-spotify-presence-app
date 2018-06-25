@@ -45,6 +45,8 @@
 
         var spotifyApi = new SpotifyWebApi();
         var stateKey = 'spotify_auth_state';
+        var curentTrack = '';
+        var curentUserId = '';
 
         /**
          * Obtains parameters from the hash of the URL
@@ -68,7 +70,12 @@
             .then(function(data){
                 $('#current-track').html(data.item.name);
 
-                assignCurrentTrackToPresence(data.item.name);
+                // Only change presence if it's a different track.
+                if(data.item.name !== curentTrack){
+                    curentTrack = data.item.name;
+                    assignCurrentTrackToPresence(curentTrack);
+                }
+                
             }, function (err){
                 console.error(err);
             });
@@ -81,17 +88,14 @@
          * @param currentTrack the title of the current track playing
          */
         function assignCurrentTrackToPresence(currentTrack){
-            usersApi.getUsersMe()
-            .then(function(data){
-                var user_id = data.id;
-                var presence_message = "flair:#84bd00:SPOTIFY: " + currentTrack;
-                var body = {
-                    "message": presence_message 
-                }
+            var presence_message = "flair:#84bd00:SPOTIFY: " + currentTrack;
+            var body = {
+                "message": presence_message 
+            }
                 
-                return presenceApi.patchUserPresence(user_id, "PURECLOUD", body)
-            }).then(function(data){
-
+            presenceApi.patchUserPresence(curentUserId, "PURECLOUD", body)
+            .then(function(data){
+                console.log("Updated presence to trak.");
             }).catch(function(err){
                 console.log(err);
             });
@@ -133,7 +137,14 @@
                 spotifyApi.setAccessToken(access_token);
                 purecloudClient.setAccessToken(state);
 
-                getCurrentTrack();
+                usersApi.getUsersMe()
+                .then(function(data){
+                    curentUserId = data.id;  
+
+                    getCurrentTrack();            
+                }).catch(function(err){
+                    console.log(err);
+                });
             }
         }    
     })();
