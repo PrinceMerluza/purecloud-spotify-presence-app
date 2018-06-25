@@ -77,11 +77,6 @@
                 }
             })
             .then(function(data){
-                if (typeof data === 'undefined'){
-                    setTimeout(getCurrentTrack, 3000);
-                    return;
-                }
-
                 $('#current-track').html(data.item.name);
 
                 // Only change presence if it's a different track.
@@ -89,7 +84,6 @@
                     curentTrack = data.item.name;
                     assignCurrentTrackToPresence(curentTrack);
                 }
-                setTimeout(getCurrentTrack, 2000);
             })
             .catch(function(err){
                 console.log(err);
@@ -125,6 +119,8 @@
             presenceApi.patchUserPresence(curentUserId, "PURECLOUD", body)
             .then(function(data){
                 console.log("Updated presence to trak.");
+
+                setTimeout(getCurrentTrack, 2000);
             }).catch(function(err){
                 console.log(err);
             });
